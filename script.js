@@ -102,7 +102,7 @@ const SITE_ACCESS_KEY = "jesus-veiculos-site-access";
 const FEATURED_CONTENT_KEY = "featured-section";
 const DEFAULT_ADMIN_USERNAME = "admin";
 const DEFAULT_ADMIN_PASSWORD = "admin123";
-const SITE_LOGIN_USERNAME = "zezinho sestema";
+const SITE_LOGIN_USERNAME = "zezinho sistema";
 const SITE_LOGIN_PASSWORD = "2026";
 const DEFAULT_TESTIMONIALS = [
   {
