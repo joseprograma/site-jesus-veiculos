@@ -15,6 +15,11 @@ const modal = document.querySelector("#image-modal");
 const modalImage = document.querySelector("#modal-image");
 const modalCaption = document.querySelector("#modal-caption");
 const modalClose = document.querySelector("#modal-close");
+const siteLogin = document.querySelector("#site-login");
+const siteLoginForm = document.querySelector("#site-login-form");
+const siteUsernameInput = document.querySelector("#site-username");
+const sitePasswordInput = document.querySelector("#site-password");
+const siteLoginFeedback = document.querySelector("#site-login-feedback");
 
 const adminOpenButton = document.querySelector("#admin-open");
 const adminModal = document.querySelector("#admin-modal");
@@ -93,9 +98,12 @@ const TESTIMONIALS_KEY = "jesus-veiculos-testimonials";
 const ADMIN_USERNAME_KEY = "jesus-veiculos-admin-username";
 const ADMIN_PASSWORD_KEY = "jesus-veiculos-admin-password";
 const ADMIN_SESSION_KEY = "jesus-veiculos-admin-session";
+const SITE_ACCESS_KEY = "jesus-veiculos-site-access";
 const FEATURED_CONTENT_KEY = "featured-section";
 const DEFAULT_ADMIN_USERNAME = "admin";
 const DEFAULT_ADMIN_PASSWORD = "admin123";
+const SITE_LOGIN_USERNAME = "zezinho sestema";
+const SITE_LOGIN_PASSWORD = "2026";
 const DEFAULT_TESTIMONIALS = [
   {
     id: "default-entrega-biz-125-ex-2026",
@@ -1102,6 +1110,65 @@ function closeAdminModal() {
   adminModal.classList.remove("is-open");
   adminModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+}
+
+function hasSiteAccess() {
+  return window.localStorage.getItem(SITE_ACCESS_KEY) === "true";
+}
+
+function setSiteAccess(value) {
+  window.localStorage.setItem(SITE_ACCESS_KEY, value ? "true" : "false");
+}
+
+function lockSiteAccess() {
+  if (!siteLogin) return;
+
+  document.body.classList.add("site-locked");
+  siteLogin.classList.add("is-open");
+  siteLogin.setAttribute("aria-hidden", "false");
+}
+
+function unlockSiteAccess() {
+  if (!siteLogin) return;
+
+  document.body.classList.remove("site-locked");
+  siteLogin.classList.remove("is-open");
+  siteLogin.setAttribute("aria-hidden", "true");
+}
+
+function initSiteLogin() {
+  if (!siteLogin || !siteLoginForm || !siteUsernameInput || !sitePasswordInput) return;
+
+  if (hasSiteAccess()) {
+    unlockSiteAccess();
+  } else {
+    lockSiteAccess();
+    siteUsernameInput.focus();
+  }
+
+  siteLoginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const username = siteUsernameInput.value.trim();
+    const password = sitePasswordInput.value;
+
+    if (username === SITE_LOGIN_USERNAME && password === SITE_LOGIN_PASSWORD) {
+      setSiteAccess(true);
+      unlockSiteAccess();
+      siteLoginForm.reset();
+      if (siteLoginFeedback) {
+        siteLoginFeedback.textContent = "";
+      }
+      return;
+    }
+
+    setSiteAccess(false);
+    if (siteLoginFeedback) {
+      siteLoginFeedback.textContent = "Usuário ou senha incorretos.";
+    }
+    sitePasswordInput.value = "";
+    sitePasswordInput.focus();
+  });
 }
 
 function saveAdminChanges() {
@@ -2208,6 +2275,7 @@ initRevealAnimations();
 initTiltCards();
 initStickyHeader();
 initParallaxEffects();
+initSiteLogin();
 
 
 

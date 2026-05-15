@@ -18,6 +18,30 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="site-login" id="site-login" aria-hidden="true">
+    <div class="site-login-panel">
+      <img class="site-login-logo" src="assets/logo/logo.png" alt="Logo Jesus Veículos">
+      <p class="section-tag">Acesso ao site</p>
+      <h2>Entrar na Jesus Veículos</h2>
+      <p class="site-login-text">Use o usuário e a senha para liberar o acesso ao site.</p>
+
+      <form class="site-login-form" id="site-login-form">
+        <label class="admin-label" for="site-username">
+          Usuário
+          <input class="admin-input" id="site-username" type="text" placeholder="Digite seu usuário" autocomplete="username">
+        </label>
+
+        <label class="admin-label" for="site-password">
+          Senha
+          <input class="admin-input" id="site-password" type="password" placeholder="Digite sua senha" autocomplete="current-password">
+        </label>
+
+        <button class="btn btn-primary site-login-button" type="submit">Entrar no site</button>
+        <p class="site-login-feedback" id="site-login-feedback" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
   <div class="page-shell">
     <header class="topbar">
       <a class="brand" href="#inicio" aria-label="Jesus Veículos">
